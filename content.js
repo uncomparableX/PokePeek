@@ -8,15 +8,28 @@ const pokeRoster = [
     { id: 'pikachu', img: getUrl('images/pikachu.gif'), color: '#FFFF00' }, 
     { id: 'bulbasaur', img: getUrl('images/bulbasaur.gif'), color: '#32CD32' }, 
     { id: 'squirtle', img: getUrl('images/squirtle.gif'), color: '#00BFFF' }, 
-    { id: 'charmander', img: getUrl('images/charmander.gif'), color: '#FF4500' } 
+    { id: 'charmander', img: getUrl('images/charmander.gif'), color: '#FF4500' },
+
+    { 
+        id: 'charizard', 
+        img: getUrl('images/charizard.gif'), 
+        color: '#FF3300', 
+        size: '95px',       
+        boardW: '85px',   
+        boardH: '26px',     
+        btnW: '20px',     
+        btnH: '6px',       
+        bubbleB: '115px'   
+    }
 ];
 
-// Pure anime language permutations!
+// text permutations
 const dialogue = {
     'pikachu': ["Pika pika!", "Pikachu!", "Pika pi!", "Piiii-ka!", "Pika pi pikachu!"],
     'bulbasaur': ["Bulba bulba bulbasaur!", "Bulbasaur!", "Bulba bulba!", "Bulba saurrr!", "Bulba!"],
     'squirtle': ["Squirtle!", "Squirtleee!", "Suiiiiirtleee!", "Squirtle squirtleee!"],
-    'charmander': ["Char!", "Charmander!", "Char char!", "Charmander char!", "Chaaaaar!"]
+    'charmander': ["Char!", "Charmander!", "Char char!", "Charmander char!", "Chaaaaar!"],
+    'charizard': ["Groooaar!", "Char-zard!", "Rrrrrrr!", "Grawrrr!", "Charrrr!"]
 };
 
 function getRandomText(id) {
@@ -35,12 +48,22 @@ function createPetElement(petData, side) {
     hoverboard.className = 'poke-hoverboard';
     hoverboard.style.setProperty('--glow-color', petData.color);
     
+
+    if (petData.size) {
+        hoverboard.style.setProperty('--board-w', petData.boardW);
+        hoverboard.style.setProperty('--board-h', petData.boardH);
+        hoverboard.style.setProperty('--btn-w', petData.btnW);
+        hoverboard.style.setProperty('--btn-h', petData.btnH);
+    }
+    
     const img = document.createElement('img');
     img.className = 'poke-pet-img';
     img.src = petData.img;
+    if (petData.size) img.style.setProperty('--sprite-size', petData.size);
     
     const bubble = document.createElement('div');
     bubble.className = 'speech-bubble';
+    if (petData.size) bubble.style.setProperty('--bubble-bottom', petData.bubbleB);
     
     // Facing logic
     if (side === 'left') {
@@ -61,10 +84,43 @@ function createPetElement(petData, side) {
 }
 
 function runPeekCycle() {
-    const shuffled = [...pokeRoster].sort(() => 0.5 - Math.random());
+    let leftPetData, rightPetData;
     
-    const leftElements = createPetElement(shuffled[0], 'left');
-    const rightElements = createPetElement(shuffled[1], 'right');
+    const isCharizardWave = Math.random() < 0.15; 
+    
+    if (isCharizardWave) {
+        const charizardData = pokeRoster.find(p => p.id === 'charizard');
+        const starters = pokeRoster.filter(p => p.id !== 'charizard');
+        
+    
+        const faceCharmander = Math.random() < 0.40;
+        
+        let opponentData;
+        if (faceCharmander) {
+            opponentData = starters.find(p => p.id === 'charmander');
+        } else {
+           
+            const remaining = starters.filter(p => p.id !== 'charmander');
+            opponentData = remaining[Math.floor(Math.random() * remaining.length)];
+        }
+        
+    
+        if (Math.random() < 0.5) {
+            leftPetData = charizardData;
+            rightPetData = opponentData;
+        } else {
+            leftPetData = opponentData;
+            rightPetData = charizardData;
+        }
+    } else {
+        const starters = pokeRoster.filter(p => p.id !== 'charizard');
+        const shuffled = [...starters].sort(() => 0.5 - Math.random());
+        leftPetData = shuffled[0];
+        rightPetData = shuffled[1];
+    }
+    
+    const leftElements = createPetElement(leftPetData, 'left');
+    const rightElements = createPetElement(rightPetData, 'right');
 
     // 1. Slide in
     setTimeout(() => {
