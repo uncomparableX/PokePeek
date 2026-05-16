@@ -5,7 +5,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 180px;
+    height: 220px;
     z-index: 999999;
     pointer-events: none;
     overflow: hidden;
@@ -43,16 +43,17 @@
     bottom: -10px;
     left: 50%;
     transform: translateX(-50%);
-    width: 65px; 
-    height: 20px;
+    width: var(--board-w, 65px); 
+    height: var(--board-h, 20px);
     border-radius: 50%;
- background: linear-gradient(to bottom, #FF0000 46%, #000000 46%, #000000 54%, #FFFFFF 54%);
+    background: linear-gradient(to bottom, #FF0000 46%, #000000 46%, #000000 54%, #FFFFFF 54%);
     border: 2px solid #000;
     box-shadow: 0 8px 10px rgba(0, 0, 0, 0.6), 
                 inset 0 4px 4px rgba(255, 255, 255, 0.6), 
-            inset 0 -4px 5px rgba(0, 0, 0, 0.4);
+                inset 0 -4px 5px rgba(0, 0, 0, 0.4);
     z-index: 9;
 }
+
 .poke-hoverboard::before {
     content: '';
     position: absolute;
@@ -66,14 +67,15 @@
     opacity: 0.8;
     z-index: -1;
 }
+
 .poke-hoverboard::after {
     content: '';
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 16px;
-    height: 5px;
+    width: var(--btn-w, 16px);
+    height: var(--btn-h, 5px);
     background: #FFF;
     border-radius: 50%;
     border: 2px solid #000;
@@ -84,7 +86,7 @@
 .poke-pet-img {
     position: relative;
     z-index: 10;
-    width: 65px; 
+    width: var(--sprite-size, 65px); 
     height: auto;
     image-rendering: pixelated;
     filter: drop-shadow(0px 6px 4px rgba(0,0,0,0.3)); 
@@ -94,7 +96,7 @@
 /* 5. Speech Bubble */
 .speech-bubble {
     position: absolute;
-    bottom: 80px; 
+    bottom: var(--bubble-bottom, 80px); 
     left: 50%;
     transform: translateX(-50%) scale(0);
     background: #fff;
