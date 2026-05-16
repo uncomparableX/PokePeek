@@ -36,7 +36,7 @@ Installing PokéPeek is quick and easy. No coding experience required!
 3. **Open Extension Settings:** Open Google Chrome (or Brave/Edge) and type `chrome://extensions/` into your address bar and press Enter.
 4. **Enable Developer Mode:** Look in the top-right corner of the extensions page and toggle **Developer mode** to **ON**.
 5. **Load the Extension:** Click the **Load unpacked** button that appears in the top-left corner.
-6. **Select the Folder:** Select the unzipped `PokemonPets` folder and click "Select Folder".
+6. **Select the Folder:** Select the unzipped `PokePeek` folder and click "Select Folder".
 
 That's it! Open a new tab, navigate to any standard webpage (like Google or Wikipedia), and wait a few seconds for your new study buddies to arrive.
 
